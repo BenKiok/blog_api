@@ -1,0 +1,21 @@
+{
+  "name": "blog_api",
+  "version": "1.0.0",
+  "description": "A backend for a personal blog running on Express and MongoDB Atlas",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "./node_modules/nodemon/bin/nodemon.js app.js",
+    "serverstart": "npm run devstart"
+  },
+  "author": "Ben Kioko",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.5"
+  }
+}
