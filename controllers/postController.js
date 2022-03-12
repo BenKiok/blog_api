@@ -27,7 +27,7 @@ exports.edit_post_get = (req, res, next) => {
   res.json('Edit post get route undefined');
 }
 
-exports.edit_post_post = (req, res, next) => {
+exports.edit_post_put = (req, res, next) => {
   res.json('Edit post post route undefined');
 }
 
@@ -35,14 +35,14 @@ exports.delete_post_get = (req, res, next) => {
   res.json('Delete post get route undefined');
 }
 
-exports.delete_post_post = (req, res, next) => {
+exports.delete_post_delete = (req, res, next) => {
   res.json('Delete post post route undefined');
 }
 
-exports.publish_post_post = (req, res, next) => {
+exports.publish_post_put = (req, res, next) => {
   res.json('Publish post post route undefined');
 }
 
-exports.unpublish_post_post = (req, res, next) => {
+exports.unpublish_post_put = (req, res, next) => {
   res.json('Unpublish post post route undefined');
 }
