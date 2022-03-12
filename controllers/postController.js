@@ -11,7 +11,7 @@ exports.view_posts_get = (req, res, next) => {
 }
 
 exports.view_a_post_get = (req, res, next) => {
-  res.json('View post get route undefined')
+  res.json('View post get route undefined');
 }
 
 /* for author */
