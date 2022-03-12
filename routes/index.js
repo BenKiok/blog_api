@@ -23,7 +23,7 @@ router.delete('/post/:id/comment/:id/delete', comment_controller.delete_comment_
 
 /* root */
 router.get('/', (req, res) => {
-  res.redirect('/posts');
+  res.status(404).send('No resource found');
 });
 
 module.exports = router;
