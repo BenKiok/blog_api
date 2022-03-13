@@ -6,7 +6,6 @@ const postSchema = new Schema({
   content: { type: String, required: true },
   time: {
     created: { type: String, required: true },
-    published: { type: String },
     edited: { type: String }
   },
   published: { type: Boolean, required: true }
