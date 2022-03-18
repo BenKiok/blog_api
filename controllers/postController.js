@@ -11,7 +11,12 @@ exports.view_posts_get = (req, res, next) => {
 }
 
 exports.view_a_post_get = (req, res, next) => {
-  res.json('View post get route undefined');
+  Post.findById(req.params.id, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(post);
+  });
 }
 
 /* for author */
