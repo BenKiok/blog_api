@@ -28,5 +28,10 @@ exports.create_comment_post = (req, res, next) => {
 }
 
 exports.delete_comment_delete = (req, res, next) => {
-  res.json('Delete comment post route undefined');
+  Comment.findByIdAndDelete(req.params.id, (err, comment) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(comment);
+  })
 }
