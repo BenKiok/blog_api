@@ -3,6 +3,7 @@ const router = express.Router();
 
 const post_controller = require('../controllers/postController');
 const comment_controller = require('../controllers/commentController');
+const user_controller = require('../controllers/userController');
 
 /* post routes */
 router.get('/posts', post_controller.view_posts_get);
@@ -20,6 +21,10 @@ router.put('/post/:id/unpublish', post_controller.unpublish_post_put);
 router.get('/post/:id/comments', comment_controller.view_comments_get);
 router.post('/post/:id/comment/new', comment_controller.create_comment_post);
 router.delete('/comment/:id/delete', comment_controller.delete_comment_delete);
+
+/* user routes */
+router.post('/user/login', user_controller.login_user_post);
+router.post('/user/logout', user_controller.logout_user_post);
 
 /* root */
 router.get('/', (req, res) => {
