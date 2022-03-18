@@ -7,6 +7,8 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 
+app.use(express.json());
+
 const mongodb = process.env.MONGODB;
 mongoose.connect(mongodb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;

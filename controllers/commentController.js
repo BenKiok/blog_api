@@ -10,7 +10,21 @@ exports.view_comments_get = (req, res, next) => {
 }
 
 exports.create_comment_post = (req, res, next) => {
-  res.json('Create comment post route undefined');
+  let comment = new Comment(
+    {
+      username: req.body.username,
+      content: req.body.content,
+      timeCreated: req.body.timeCreated,
+      post: req.params.id
+    }
+  );
+
+  comment.save((err, newComment) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(newComment);
+  });
 }
 
 exports.delete_comment_delete = (req, res, next) => {
