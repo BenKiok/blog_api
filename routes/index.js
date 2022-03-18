@@ -19,7 +19,7 @@ router.put('/post/:id/unpublish', post_controller.unpublish_post_put);
 /* comment routes */
 router.get('/post/:id/comments', comment_controller.view_comments_get);
 router.post('/post/:id/comment/new', comment_controller.create_comment_post);
-router.delete('/post/:id/comment/:id/delete', comment_controller.delete_comment_delete);
+router.delete('/comment/:id/delete', comment_controller.delete_comment_delete);
 
 /* root */
 router.get('/', (req, res) => {
