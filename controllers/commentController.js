@@ -1,7 +1,12 @@
 const Comment = require('../models/Comment');
 
 exports.view_comments_get = (req, res, next) => {
-  res.json('View comments get route undefined');
+  Comment.find({ post: req.params.id }, (err, comments) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(comments);
+  });
 }
 
 exports.create_comment_post = (req, res, next) => {
