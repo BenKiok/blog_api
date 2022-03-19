@@ -7,20 +7,20 @@ const user_controller = require('../controllers/userController');
 
 /* post routes */
 router.get('/posts', post_controller.view_posts_get);
-router.get('/post/:id', post_controller.view_a_post_get);
-router.get('/post/new', post_controller.create_post_get);
-router.post('/post/new', post_controller.create_post_post);
-router.get('/post/:id/edit', post_controller.edit_post_get);
-router.put('/post/:id/edit', post_controller.edit_post_put);
-router.get('/post/:id/delete', post_controller.delete_post_get);
-router.delete('/post/:id/delete', post_controller.delete_post_delete);
-router.put('/post/:id/publish', post_controller.publish_post_put);
-router.put('/post/:id/unpublish', post_controller.unpublish_post_put);
+router.get('/posts/:id', post_controller.view_a_post_get);
+router.get('/posts/new', post_controller.create_post_get);
+router.post('/posts/new', post_controller.create_post_post);
+router.get('/posts/:id/edit', post_controller.edit_post_get);
+router.put('/posts/:id/edit', post_controller.edit_post_put);
+router.get('/posts/:id/delete', post_controller.delete_post_get);
+router.delete('/posts/:id/delete', post_controller.delete_post_delete);
+router.put('/posts/:id/publish', post_controller.publish_post_put);
+router.put('/posts/:id/unpublish', post_controller.unpublish_post_put);
 
 /* comment routes */
-router.get('/post/:id/comments', comment_controller.view_comments_get);
-router.post('/post/:id/comment/new', comment_controller.create_comment_post);
-router.delete('/comment/:id/delete', comment_controller.delete_comment_delete);
+router.get('/posts/:id/comments', comment_controller.view_comments_get);
+router.post('/posts/:id/comments/new', comment_controller.create_comment_post);
+router.delete('/comments/:id/delete', comment_controller.delete_comment_delete);
 
 /* user routes */
 router.post('/user/login', user_controller.login_user_post);
