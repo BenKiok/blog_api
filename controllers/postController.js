@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const { body, validationResult } = require('express-validator');
 
 /* for blog site viewers */
 exports.view_posts_get = (req, res, next) => {
@@ -20,34 +21,88 @@ exports.view_a_post_get = (req, res, next) => {
 }
 
 /* for author */
-exports.create_post_get = (req, res, next) => {
-  res.json('Create post get route undefined');
-}
+exports.create_post_post = [
+  body('title').notEmpty().trim().escape(),
+  body('content').notEmpty().trim().escape(),
+  body('timeCreated').notEmpty(),
+  (req, res, next) => {
+    const errors = validationResult(req);
 
-exports.create_post_post = (req, res, next) => {
-  res.json('Create post post route undefined');
-}
+    if (!errors.isEmpty()) {
+      res.json(req.body);
+    } else {
+      let post = new Post(
+        {
+          title: req.body.title,
+          content: req.body.content,
+          time: {
+            created: req.body.timeCreated
+          },
+          published: false
+        }
+      );
 
-exports.edit_post_get = (req, res, next) => {
-  res.json('Edit post get route undefined');
-}
+      post.save((err, newPost) => {
+        if (err) {
+          return next(err);
+        }
+        res.json(newPost);
+      })
+    }
+  }
+]
 
-exports.edit_post_put = (req, res, next) => {
-  res.json('Edit post post route undefined');
-}
+exports.edit_post_put = [
+  body('title').notEmpty().trim().escape(),
+  body('content').notEmpty().trim().escape(),
+  body('timeEdited').notEmpty(),
+  (req, res, next) => {
+    const errors = validationResult(req);
 
-exports.delete_post_get = (req, res, next) => {
-  res.json('Delete post get route undefined');
-}
+    if (!errors.isEmpty()) {
+      res.json(req.body);
+    } else {
+      let edits = {
+        title: req.body.title,
+        content: req.body.content,
+        time: {
+          edited: req.body.timeEdited
+        }
+      }
+
+      Post.findByIdAndUpdate(req.params.id, edits, (err, post) => {
+        if (err) {
+          return next(err);
+        }
+        res.json(post);
+      });
+    }
+  }
+]
 
 exports.delete_post_delete = (req, res, next) => {
-  res.json('Delete post post route undefined');
+  Post.findByIdAndDelete(req.params.id, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(post);
+  });
 }
 
 exports.publish_post_put = (req, res, next) => {
-  res.json('Publish post post route undefined');
+  Post.findByIdAndUpdate(req.params.id, { published: true }, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(post);
+  });
 }
 
 exports.unpublish_post_put = (req, res, next) => {
-  res.json('Unpublish post post route undefined');
+  Post.findByIdAndUpdate(req.params.id, { published: false }, (err, post) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(post);
+  });
 }
