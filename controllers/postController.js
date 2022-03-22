@@ -1,5 +1,7 @@
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 const { body, validationResult } = require('express-validator');
+const async = require('async');
 
 /* for blog site viewers */
 exports.view_posts_get = (req, res, next) => {
@@ -81,11 +83,51 @@ exports.edit_post_put = [
 ]
 
 exports.delete_post_delete = (req, res, next) => {
-  Post.findByIdAndDelete(req.params.id, (err, post) => {
+  Comment.find({ post: req.params.id }, (err, comments) => {
     if (err) {
       return next(err);
     }
-    res.json(post);
+    
+    let funcArr = [],
+        func;
+    
+    comments.forEach(comment => {
+      func = cb => {
+        Comment.findByIdAndDelete(comment._id, (err, comment) => {
+          if (err) {
+            return next(err);
+          }
+          cb(null, comment);
+        });
+      }
+
+      funcArr.push(func);
+    });
+
+    async.series([
+        function(cb) {
+          async.parallel(
+            funcArr,
+            cb
+          )
+        },
+        function(cb) {
+          Post.findByIdAndDelete(req.params.id, (err, post) => {
+            if (err) {
+              return next(err);
+            }
+            cb(null, post);
+          });
+        }
+      ],
+      function(err, results) {
+        if (err) {
+          return next(err);
+        }
+        
+        res.json(results);
+      }
+    );
   });
 }
 
