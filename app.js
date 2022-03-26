@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require('cors');
 require('dotenv').config();
 require('./passport');
 
@@ -18,6 +19,7 @@ db.on('error', console.error.bind(console, 'Mongo connection error'));
 
 app.use(passport.initialize());
 app.use(express.json());
+app.use(cors());
 
 app.use('/', mainRouter);
 app.use('/api/user', authRouter);
