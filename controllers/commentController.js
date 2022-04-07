@@ -13,11 +13,11 @@ exports.view_comments_get = (req, res, next) => {
 
 exports.create_comment_post = [
   body('username').notEmpty().trim().escape(),
-  body('password').notEmpty(),
+  body('content').notEmpty().trim().escape(),
   body('timeCreated').notEmpty().trim(),
   (req, res, next) => {
     const errors = validationResult(req);
-
+    
     if (!errors.isEmpty()) {
       res.json(req.body);
     } else {
