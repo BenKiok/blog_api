@@ -5,7 +5,7 @@ const async = require('async');
 
 /* for blog site viewers */
 exports.view_posts_get = (req, res, next) => {
-  Post.find({ published: true }, (err, posts) => {
+  Post.find({}, (err, posts) => {
     if (err) {
       return next(err);
     }
